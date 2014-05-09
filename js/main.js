@@ -312,7 +312,7 @@ var MarkerList = Backbone.Collection.extend({
                             if(mark.name){
                               return {name: mark.name, index: i};
                             }else{
-                              return {name: 'Ponto '+(i+1),index: i};
+                              return {name: 'Punto '+(i+1),index: i};
                             };
                             })};
         },
