@@ -2,10 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Mapa de Ônibus de Fortaleza</title>
+    <title>Mapa interactivo de rutas de buses en San José, Costa Rica</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Mapa interativo das linhas de onibus de Fortaleza. Permite a visualização e busca de rotas com um sistema de perquisa de itinerario.">
-    <meta name="author" content="Thibault Durand">
+    <meta name="description" content="Mapa interactivo donde se pueden buscar rutas de buses en San José. Crowdsourced">
+    <meta name="author" content="Jose Leon. Based heavily on work by Thibault Durand">
 
     <!-- Le Facebook Tags -->
     <meta property="og:title" content="Mapa de Ônibus de Fortaleza" />
@@ -39,11 +39,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="">Mapa de Ônibus de Fortaleza</a>
+          <a class="brand" href="">Mapa de buses de San José</a>
           <div class="nav-collapse">
             <ul class="nav">
               <li class="main active"><a href="">Mapa</a></li>
-              <li class="about"><a href="#about">Sobre o Aplicativo</a></li>
+              <li class="about"><a href="#about">Información</a></li>
             </ul>
             <div class="nav-bar-right">
                 <a href="https://twitter.com/mapafortaleza" class="twitter-follow-button" data-show-count="true" data-lang="en">Siga @mapafortaleza</a>
@@ -61,17 +61,17 @@
           </div>
           <div class="span5">
             <div id="linelistselect">
-              <h4>Escolha uma linha :</h4>
+              <h4>Seleccione una ruta :</h4>
               <p>
               <select data-placeholder="Escolhe uma linha" class="chzn-select">
-                  <option value="">Carregando...</option>
+                  <option value="">Cargando...</option>
               </select>
             </p>
             </div>
           </div>
           <div class="span4">
             <div id="addressSearchForm">
-              <h4>Digite um destino :</h4>
+              <h4>Digite un destino :</h4>
               <form id="searchAddress" class="form-inline">
                   <input type="text" id="address">
                   <input class="btn btn-primary" type="submit" value="Buscar">
@@ -92,16 +92,16 @@
                     <p><button class="btn btn-primary btn-large addmarker">
                       <i class="icon-map-marker icon-white">
                       </i>
-                      Adicionar ponto
+                      Agregar punto
                     </button></p>
                     <p><button class="btn btn-primary btn-large addmylocal">
                       <i class="icon-map-marker icon-white">
                       </i>
-                      Minha localização
+                      Mi ubicación
                     </button></p>
                     <div id="listmarkers"></div>
                     <div id="linelistsidebar" class="lineListSidebar">
-                     <h4>Linhas:</h4> 
+                     <h4>Rutas:</h4> 
                     </div>
                </div>
                <div class="span10 content">
@@ -109,10 +109,10 @@
                     <strong>Nenhuma linha correspondente !</strong> Tenta mover os pontos para tentar encontrar uma rota.
                   </div>
                   <div class="maintenance alert alert-heading hidden">
-                    <strong>Manutenção</strong> Atualizando os dados, por favor, aguarde alguns minutos...
+                    <strong>En mantenimiento</strong> Por favor intente de nuevo en unos minutos...
                   </div>
                   <div class="noaddressfound alert alert-error hidden">
-                    <strong>Endereço não encontrado!</strong> Verifique se ele foi digitado corretamente.
+                    <strong>Dirección no encontrada</strong> Favor verificar dirección
                   </div>
                   <div id="map_canvas" class="map"></div>
                </div>
@@ -186,7 +186,7 @@
     <script type="text/javascript" src="js/main.js"></script>
 
     <script id="lineListSelect" type="text/html">
-        <h4>Escolhe uma linha ({{_totalLines}}):</h4> 
+        <h4>Seleccione una ruta ({{_totalLines}}):</h4> 
         <p><select data-placeholder="Escolhe uma linha" class="chzn-select">
         {{#rows}}
             <option value="{{num}}">{{label}}</option>
@@ -195,7 +195,7 @@
     </script>
 
     <script id="lineListSidebar" type="text/html">
-        <h4>Linhas ({{_totalLines}}): </h4>
+        <h4>Rutas ({{_totalLines}}): </h4>
         <div class="lineListSidebarContent">
         <table class="table table-striped table-bordered table-condensed listlines">
          {{#rows}}
