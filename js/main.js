@@ -4,7 +4,7 @@ app.params = {
     urlFusionTable : "https://www.googleapis.com/fusiontables/v1/query",
    // original-> idFusionTable: "1ugP-dIxvkhmfuMNfZo_NyIQs5kMGpaFMbP7YG2o",
 	idFusionTable: "1xN6EwNrB3rf9AOAUg_OLSR44wVv7s-kOtB_7pg9x",
-    keyFusionTable: "AIzaSyC59BP_KRtQDLeb5XM_x0eQNT_tdlBbHZc"
+    keyFusionTable: "AIzaSyAEitMgsdc2KvXsvuNQl6cTk7L0ILDgMkE"
 }
 
 app.main = function() {
@@ -68,24 +68,22 @@ app.main = function() {
                             if (results[0]) {
                                 var cityLongName = results[0].address_components[3].long_name;
                                 var cityShortName = results[0].address_components[3].short_name;
-                                if (cityLongName == 'Fortaleza' || cityShortName == 'Fortaleza') {
-                                    busMap._markerList.add(new google.maps.Marker({ position: mycoords ,
-                                                                    map: busMap.getMap() ,
-                                                                    draggable: true ,
-                                                                    name: 'EU' }));
-                                } else {
-                                    alert("Não foi possível achar sua localização ou você não está em Fortaleza. Tente novamente mais tarde.");
-                                }
+                                
+								busMap._markerList.add(new google.maps.Marker({ position: mycoords ,
+																map: busMap.getMap() ,
+																draggable: true ,
+																name: 'EU' }));
+                                
                             }
                         } else {
-                            alert("Não foi possível achar sua localização. Tente novamente mais tarde.");
+                            alert("No fue posible determinar su posicion. Intente de nuevo mas tarde.");
                         }
                     });
                     
 
                 }); 
             } else { 
-                alert("Seu navegador não suporta geolocalização."); 
+                alert("Su navegador no soporta geolocalizacion."); 
             }
         });
 
