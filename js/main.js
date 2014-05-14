@@ -72,7 +72,7 @@ app.main = function() {
 								busMap._markerList.add(new google.maps.Marker({ position: mycoords ,
 																map: busMap.getMap() ,
 																draggable: true ,
-																name: 'EU' }));
+																name: 'Mi ubicación' }));
                                 
                             }
                         } else {
@@ -437,6 +437,7 @@ var BusMap = Backbone.Router.extend({
         "":             "index",
         "line/:num":    "displayLine",
         "about":        "about",
+		"subform":		"subform",
     },
     
     initialize : function() {
@@ -492,6 +493,10 @@ var BusMap = Backbone.Router.extend({
     about : function() {
         this.switchToPage("about");
     },
+	
+	subform : function() {
+		this.switchToPage("subform");
+	},
 
     switchToPage : function(destination) {
         $(".page").hide();
