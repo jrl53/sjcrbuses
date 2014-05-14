@@ -48,7 +48,7 @@ function startTracking() {
 		function(position) {
 			var now = new Date().getTime();
 			if (ls != 1 || now - lt > 10000) {
-				ta.value += now + ' // ' + position.coords.latitude + ' // ' + position.coords.longitude + '\n';
+				ta.value += position.coords.longitude + ',' + position.coords.latitude + '\n';
 				localStorage.setItem('trip', ta.value);
 				lt = now;
 				ls = 1;
@@ -56,7 +56,7 @@ function startTracking() {
 		},
 		function() {
 			var now = new Date().getTime();
-			if (ls != 0 || now - lt > 10000) {
+			if (ls != 0 || now - lt > 1000) {
 				ta.value += now + ' // fail\n';
 				localStorage.setItem('trip', ta.value);
 				lt = now;
