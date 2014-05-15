@@ -51,7 +51,7 @@
 			<input value="Stop Trip" type="button" onclick="resetTrip();">
 			<input value="Use Server" type="button" onclick="this.form.t_action.value = 'savetrip.php';">
 			<input type="submit" onclick="this.form.action = this.form.t_action.value;">
-			<input value="drawlines" type="button" onclick="drawlinestest();">
+			<input value="Add Stop" type="button" onclick="addStop();">
 		</form>
       <p>The path of the polyline is defined by an array of array of two (latitude and longitude).</p>
     </div>
@@ -131,6 +131,22 @@
 	function updatePosition(lat,lng){
 		map.setCenter(lat, lng);
 	}
+	
+	function addStop() {
+		navigator.geolocation.getCurrentPosition(
+			function(position){
+				ts.value += 'STOP' + postion.coords.longitude + ',' + position.coords.latitude + '\n';
+				//localStorage.setItem('stops', 
+				map.addMarker({
+					lat: position.coords.latitude,
+					lng: postion.coords.longitude,
+					title: 'Stop'
+				});
+			}
+		
+		);
+	}
+
 
 </script>
 
