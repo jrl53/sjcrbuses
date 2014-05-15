@@ -97,6 +97,7 @@
 					
 					path.push([position.coords.latitude, position.coords.longitude]);
 					drawlinestest();
+					updatePosition(position.coords.latitude, position.coords.longitude);
 					lt = now;
 					ls = 1;
 				}
@@ -126,6 +127,11 @@
         strokeWeight: 6
       });
 	}
+	
+	function updatePosition(lat,lng){
+		map.setCenter(lat, lng);
+	}
+
 </script>
 
 </html>
