@@ -46,7 +46,7 @@
 		<form action="" method="post">
 			
 			<textarea readonly name="coords"></textarea>
-			<textarea readonly id="stopstext"></textarea>
+		
 			<input value="Start Tracking" type="button" onclick="startTracking();this.disabled=true;">
 			<input value="Stop Trip" type="button" onclick="resetTrip();">
 			<input value="Use Server" type="button" onclick="this.form.t_action.value = 'savetrip.php';">
@@ -91,6 +91,7 @@
 		navigator.geolocation.clearWatch(watchID);
 		addHeader();
 	}
+	
 	function startTracking() {
 		track = true;
 		addHeader();
