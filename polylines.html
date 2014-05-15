@@ -10,17 +10,18 @@
   <link rel="stylesheet" type="text/css" href="css/examples.css" />
   <script type="text/javascript">
     var map;
+	var path = new Array()
     $(document).ready(function(){
       map = new GMaps({
         el: '#map',
-        lat: -12.043333,
-        lng: -77.028333,
+        lat: 9.965466,
+        lng: -84.058571,
         click: function(e){
           console.log(e);
         }
       });
-
-      path = [[-12.044012922866312, -77.02470665341184], [-12.05449279282314, -77.03024273281858], [-12.055122327623378, -77.03039293652341], [-12.075917129727586, -77.02764635449216], [-12.07635776902266, -77.02792530422971], [-12.076819390363665, -77.02893381481931], [-12.088527520066453, -77.0241058385925], [-12.090814532191756, -77.02271108990476]];
+	
+	
 
       map.drawPolyline({
         path: path,
@@ -30,6 +31,9 @@
       });
     });
   </script>
+  
+  
+  
 </head>
 <body>
   <h1>GMaps.js &mdash; Polylines</h1>
@@ -38,17 +42,88 @@
       <div id="map"></div>
     </div>
     <div class="span6">
-      <p>You can add polylines in GMaps.js this way:</p>
-      <pre>path = [[-12.044012922866312, -77.02470665341184], [-12.05449279282314, -77.03024273281858], [-12.055122327623378, -77.03039293652341], [-12.075917129727586, -77.02764635449216], [-12.07635776902266, -77.02792530422971], [-12.076819390363665, -77.02893381481931], [-12.088527520066453, -77.0241058385925], [-12.090814532191756, -77.02271108990476]];
-
-map.drawPolyline({
-  path: path,
-  strokeColor: '#131540',
-  strokeOpacity: 0.6,
-  strokeWeight: 6
-});</pre>
+	
+		<form action="" method="post">
+			
+			<textarea readonly name="coords"></textarea>
+			<input value="Start Tracking" type="button" onclick="startTracking();this.disabled=true;">
+			<input value="Stop Trip" type="button" onclick="resetTrip();">
+			<input value="Use Server" type="button" onclick="this.form.t_action.value = 'savetrip.php';">
+			<input type="submit" onclick="this.form.action = this.form.t_action.value;">
+			<input value="drawlines" type="button" onclick="drawlinestest();">
+		</form>
       <p>The path of the polyline is defined by an array of array of two (latitude and longitude).</p>
     </div>
   </div>
 </body>
+
+<script>
+	var ta = document.querySelector('textarea');
+	var lt = 0;
+	var ls = false;
+	var track = false;
+	var watchID;
+
+	(function() {
+		var tr = localStorage.getItem('trip');
+		if (tr != '' && tr != null) {
+			ta.value = tr + '\n';
+		}
+	})();
+	function addHeader() {
+		ta.value += '-- tracking started: ' + (new Date().toString()) + '\n';
+		ta.value += (new Date().getTime()) + ' // start\n';
+		localStorage.setItem('trip', ta.value);
+	}
+	function resetTrip() {
+		if (!confirm('Are you sure you want to clear your trip?'))
+			return false;
+		localStorage.setItem('trip', '');
+		ta.value = '';
+		navigator.geolocation.clearWatch(watchID);
+		addHeader();
+	}
+	function startTracking() {
+		track = true;
+		addHeader();
+		watchID = navigator.geolocation.watchPosition(
+			function(position) {
+				var now = new Date().getTime();
+				if (ls != 1 || now - lt > 1000) {
+					ta.value += position.coords.longitude + ',' + position.coords.latitude + '\n';
+					localStorage.setItem('trip', ta.value);
+					
+					path.push([position.coords.latitude, position.coords.longitude]);
+					drawlinestest();
+					lt = now;
+					ls = 1;
+				}
+			},
+			function() {
+				var now = new Date().getTime();
+				if (ls != 0 || now - lt > 1000) {
+					ta.value += now + ' // fail\n';
+					localStorage.setItem('trip', ta.value);
+					lt = now;
+					ls = 0;
+				}
+			},
+			{
+				enableHighAccuracy: true,
+				maximumAge: 60000,
+				timeout: 15000
+			}
+		);
+	}
+	
+	function drawlinestest() {
+		map.drawPolyline({
+        path: path,
+        strokeColor: '#131540',
+        strokeOpacity: 0.6,
+        strokeWeight: 6
+      });
+	}
+</script>
+
 </html>

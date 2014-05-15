@@ -14,7 +14,7 @@
 	<input name="t_action" value="http://192.168.1.64/gps/save.php">
 	<textarea readonly name="coords"></textarea>
 	<input value="Start Tracking" type="button" onclick="startTracking();this.disabled=true;">
-	<input value="Reset Trip" type="button" onclick="resetTrip();">
+	<input value="Stop Trip" type="button" onclick="resetTrip();">
 	<input value="Use Server" type="button" onclick="this.form.t_action.value = 'savetrip.php';">
 	<input type="submit" onclick="this.form.action = this.form.t_action.value;">
 </form>
@@ -23,6 +23,8 @@ var ta = document.querySelector('textarea');
 var lt = 0;
 var ls = false;
 var track = false;
+var watchID;
+
 (function() {
 	var tr = localStorage.getItem('trip');
 	if (tr != '' && tr != null) {
@@ -39,12 +41,13 @@ function resetTrip() {
 		return false;
 	localStorage.setItem('trip', '');
 	ta.value = '';
+	navigator.geolocation.clearWatch(watchID);
 	addHeader();
 }
 function startTracking() {
 	track = true;
 	addHeader();
-	navigator.geolocation.watchPosition(
+	watchID = navigator.geolocation.watchPosition(
 		function(position) {
 			var now = new Date().getTime();
 			if (ls != 1 || now - lt > 10000) {
