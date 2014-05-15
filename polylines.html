@@ -136,11 +136,11 @@
 	function addStop() {
 		navigator.geolocation.getCurrentPosition(
 			function(position){
-				ts.value += 'STOP' + postion.coords.longitude + ',' + position.coords.latitude + '\n';
+				ts.value += 'STOP' + position.coords.longitude + ',' + position.coords.latitude + '\n';
 				//localStorage.setItem('stops', 
 				map.addMarker({
 					lat: position.coords.latitude,
-					lng: postion.coords.longitude,
+					lng: position.coords.longitude,
 					title: 'Stop'
 				},
 				showError(error)
