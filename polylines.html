@@ -2,38 +2,12 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>GMaps.js &mdash; Milata-Contribuir</title>
+  <title>Milata-Contribuir</title>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
   <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
   <script type="text/javascript" src="libs/gmaps.js"></script>
   <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.3.0/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="css/examples.css" />
-  <script type="text/javascript">
-    var map;
-	var path = new Array()
-    $(document).ready(function(){
-      map = new GMaps({
-        el: '#map',
-        lat: 9.965466,
-        lng: -84.058571,
-        click: function(e){
-          console.log(e);
-        }
-      });
-	
-	
-
-      map.drawPolyline({
-        path: path,
-        strokeColor: '#131540',
-        strokeOpacity: 0.6,
-        strokeWeight: 6
-      });
-    });
-  </script>
-  
-  
-  
 </head>
 <body>
   <h1>Ayudanos a trazar una ruta</h1>
@@ -47,17 +21,59 @@
 			
 			<textarea readonly name="coords"></textarea>
 			<textarea readonly id="stopstext"></textarea>
-			<input value="Start Tracking" type="button" onclick="startTracking();this.disabled=true;">
-			<input value="Stop Trip" type="button" onclick="resetTrip();">
-			<input value="Add Stop" type="button" onclick="addStop();">
-			<input type="submit" onclick="this.form.action = this.form.t_action.value;">
+			<input id="startButton" value="Start Tracking" type="button">
+			<input id="stopButton" value="Stop" type="button">
+			<input id= "addButton" value="Add Stop" type="button">
+                        <input id="resetButton" value="Reset Trip" type="button">
+			<input id="submitButton" disabled="disabled" type="submit" onclick="this.form.action = this.form.t_action.value;">
 		</form>
       
     </div>
   </div>
-</body>
 
-<script>
+
+<script type="text/javascript">
+	var map;
+	var path = new Array();
+    $(document).ready(function(){
+      map = new GMaps({
+        el: '#map',
+        lat: 9.965466,
+        lng: -84.058571,
+        click: function(e){
+          console.log(e);
+        }
+      });
+      
+      resetTrip();
+	
+	$('#startButton').click(function(){
+            startTracking();
+            $('#startButton').attr('disabled','disabled');
+            $('#submitButton').attr('disabled','disabled');
+	});
+        
+        $('#stopButton').click(function(){
+            stopTrip();
+            $('#startButton').removeAttr('disabled');
+            $('#submitButton').removeAttr('disabled');
+        });
+        
+        $('#resetButton').click(function(){
+            if (!confirm('Esta acción borrará el viaje completo sin enviar al servidor. Desea continuar?')){
+                return false;
+            }
+            resetTrip();
+            stopTrip();
+            $('startButton').removeAttr('disabled');
+            
+        });
+        
+        $('#addButton').click(function(){
+            addStop();
+        });
+        
+    });
 	var ta = document.querySelector('textarea');
 	var ts = document.querySelector('#stopstext');
 	var lt = 0;
@@ -65,29 +81,23 @@
 	var track = false;
 	var watchID;
 
-	(function() {
-		var tr = localStorage.getItem('trip');
-		if (tr != '' && tr != null) {
-			ta.value = tr + '\n';
-		}
-	})();
-	function addHeader() {
-		ta.value += '-- tracking started: ' + (new Date().toString()) + '\n';
-		ta.value += (new Date().getTime()) + ' // start\n';
-		localStorage.setItem('trip', ta.value);
-	}
-	function resetTrip() {
-		if (!confirm('Are you sure you want to clear your trip?'))
-			return false;
-		localStorage.setItem('trip', '');
-		ta.value = '';
+	
+        function resetTrip() {
+            localStorage.setItem('trip', '');
+            ta.value = '';
+            ts.value = '';
+            map.removeMarkers();
+            map.removePolylines();
+            return true;
+        }
+	
+	function stopTrip() {
 		navigator.geolocation.clearWatch(watchID);
-		addHeader();
+		return true;
 	}
 	
 	function startTracking() {
 		track = true;
-		addHeader();
 		watchID = navigator.geolocation.watchPosition(
 			function(position) {
 				var now = new Date().getTime();
@@ -96,7 +106,7 @@
 					localStorage.setItem('trip', ta.value);
 					
 					path.push([position.coords.latitude, position.coords.longitude]);
-					drawlinestest();
+					drawlines();
 					updatePosition(position.coords.latitude, position.coords.longitude);
 					lt = now;
 					ls = 1;
@@ -119,10 +129,11 @@
 		);
 	}
 	
-	function drawlinestest() {
+	function drawlines() {
+		map.removePolylines();
 		map.drawPolyline({
-        path: path,
         strokeColor: '#131540',
+        path: path,
         strokeOpacity: 0.6,
         strokeWeight: 6
       });
@@ -142,30 +153,12 @@
 					lng: position.coords.longitude,
 					title: 'Stop'
 				});
-			}
-		
+			},
+                        function(){
+                            alert('WWWAAAAHHHH');
+                        }      
 		);
 	}
-	
-	function showError(error)
-	  {
-	  switch(error.code) 
-		{
-		case error.PERMISSION_DENIED:
-		  alert("User denied the request for Geolocation.")
-		  break;
-		case error.POSITION_UNAVAILABLE:
-		  alert( "Location information is unavailable.")
-		  break;
-		case error.TIMEOUT:
-		  alert(  "The request to get user location timed out.")
-		  break;
-		case error.UNKNOWN_ERROR:
-		  alert(  "An unknown error occurred.")
-		  break;
-		}
-	  }
-
-</script>
-
+	</script>
+</body>
 </html>
