@@ -6,6 +6,8 @@
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
   <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
   <script type="text/javascript" src="libs/gmaps.js"></script>
+  <script type="text/javascript" src="libs/underscore-min.js" charset="utf-8"></script>
+  <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
   <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.3.0/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="css/examples.css" />
 </head>
@@ -24,8 +26,15 @@
 			<input id="startButton" value="Start Tracking" type="button">
 			<input id="stopButton" value="Stop" type="button">
 			<input id= "addButton" value="Add Stop" type="button">
-                        <input id="resetButton" value="Reset Trip" type="button">
-			<input id="submitButton" disabled="disabled" type="submit" onclick="this.form.action = this.form.t_action.value;">
+            <input id="resetButton" value="Reset Trip" type="button">
+			<input id="submitButton" value ="Submit" disabled="disabled" type="button"><br>
+			Nombre de Compania: <input type="text" id="Compania"><br>
+			Nombre de Ruta: <input type="text" id="Ruta_Name"><br>
+			Numero de Ruta: <input type="text" id="Ruta_ID"><br>
+			Sentido: <input type="text" id="Sentido"><br>
+			Su nombre: <input type="text" id="Nombre_colaborador"><br>
+			Su email: <input type="text" id="Email_colaborador"><br>
+			Nombre de Ruta: <input type="text" id="Ruta_Name"><br>
 		</form>
       
     </div>
@@ -33,9 +42,22 @@
 
 
 <script type="text/javascript">
-	var map;
-	var path = new Array();
+	var fusionTableRoutesid = "13wU5Lloq1J7gKBPiZXy46FKMjcEG_7X__Rp7cstb";
+        var keyFusionTable = "AIzaSyAEitMgsdc2KvXsvuNQl6cTk7L0ILDgMkE";
+        var cliendId = "199438855769-nb669c4euv2co1m35tjffgv4icb4ps1c.apps.googleusercontent.com";
+        var refreshToken = "1/ZHDmNkA7jiX0IVe3Tojuo3jOck9a8tFn82Cvno8R_6s";
+        var clientSecret = "qiB8QziiVg-lXQhNkBMTI0Sw";
+        
+        
+        var map;
+		var path = new Array();
+        var stops = new Array();
+        var pathDisplay = new Array;
+        
+                
     $(document).ready(function(){
+      
+      
       map = new GMaps({
         el: '#map',
         lat: 9.965466,
@@ -73,6 +95,10 @@
             addStop();
         });
         
+        $('#submitButton').click(function(){
+            sendPathtoFT(path);
+        });
+        
     });
 	var ta = document.querySelector('textarea');
 	var ts = document.querySelector('#stopstext');
@@ -80,7 +106,8 @@
 	var ls = false;
 	var track = false;
 	var watchID;
-
+        
+        
 	
         function resetTrip() {
             localStorage.setItem('trip', '');
@@ -88,6 +115,9 @@
             ts.value = '';
             map.removeMarkers();
             map.removePolylines();
+            path = new Array();
+            pathDisplay = new Array();
+            stops = new Array();
             return true;
         }
 	
@@ -104,8 +134,8 @@
 				if (ls != 1 || now - lt > 1000) {
 					ta.value += position.coords.longitude + ',' + position.coords.latitude + '\n';
 					localStorage.setItem('trip', ta.value);
-					
-					path.push([position.coords.latitude, position.coords.longitude]);
+					path.push([now,position.coords.latitude, position.coords.longitude]);
+					pathDisplay.push([position.coords.latitude, position.coords.longitude]);
 					drawlines();
 					updatePosition(position.coords.latitude, position.coords.longitude);
 					lt = now;
@@ -133,7 +163,7 @@
 		map.removePolylines();
 		map.drawPolyline({
         strokeColor: '#131540',
-        path: path,
+        path: pathDisplay,
         strokeOpacity: 0.6,
         strokeWeight: 6
       });
@@ -146,12 +176,17 @@
 	function addStop() {
 		navigator.geolocation.getCurrentPosition(
 			function(position){
-				ts.value += 'STOP' + position.coords.longitude + ',' + position.coords.latitude + '\n';
-				//localStorage.setItem('stops', 
+				var now = new Date().getTime();
+                                var stopName = prompt("Nombre de la parada");
+                                ts.value += 'STOP' + position.coords.longitude + ',' + position.coords.latitude + '\n';
+				stops.push([now,stopName, position.coords.latitude, position.coords.longitude]); 
 				map.addMarker({
 					lat: position.coords.latitude,
 					lng: position.coords.longitude,
-					title: 'Stop'
+					title: 'Stop',
+                                        infoWindow: {
+                                            content: '<p>'+stopName+'</p>'
+                                           }
 				});
 			},
                         function(){
@@ -159,6 +194,46 @@
                         }      
 		);
 	}
+        
+        function sendPathtoFT(path){
+            var route_id = $('#Ruta_ID').val();
+            var route_name = $('#Ruta_Name').val();
+            var status = 'New';
+            var sentido = $('#Sentido').val();
+            var company = $('#Compania').val();
+            var nombre_col = $('#Nombre_colaborador').val();
+            var email_col = $('#Email_colaborador').val();
+            var geometry = polyToKML(path);
+            var myqry = 'INSERT INTO ' + fusionTableRoutesid + ' (Ruta_ID, Status, Ruta_Name, Sentido, Compania, Nombre_colaborador, Email_colaborador, geometry) VALUES ('+ route_id + ',\'' + status + '\',\'' + route_name + '\',\'' + sentido + '\',\'' + company + '\',\'' + nombre_col +  '\',\'' + email_col + '\',\'' + geometry + '\')';
+                    
+            $.post('http://utility-glider-589.appspot.com/newRoute', 
+				{Route_id : route_id,
+				Route_name : route_name,
+				Status : status,
+				Sentido : sentido,
+				Compania : company,
+				Nombre_colaborador : nombre_col,
+				Email_colaborador : email_col,
+				Geometry : geometry,				
+				}
+			);
+        }
+        
+        function polyToKML(path){
+            var result;
+            result = '<LineString> <coordinates> ';
+            _.each(path, function(element){
+                result += element[2] + ',' + element[1] + ' ';
+            });
+            result += '</coordinates> </LineString>';
+            return result;
+        }
+        
+        function stopToKML(stop){
+            var result;
+            result = '<Point> <coordinates> ' + stop[3] + ',' + stop[2] + ' </coordinates> </Point>';
+        }
+        
 	</script>
 </body>
 </html>
