@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>Milata-Contribuir</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
   <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
   <script type="text/javascript" src="libs/gmaps.js"></script>
@@ -206,7 +207,7 @@
             var geometry = polyToKML(path);
             var myqry = 'INSERT INTO ' + fusionTableRoutesid + ' (Ruta_ID, Status, Ruta_Name, Sentido, Compania, Nombre_colaborador, Email_colaborador, geometry) VALUES ('+ route_id + ',\'' + status + '\',\'' + route_name + '\',\'' + sentido + '\',\'' + company + '\',\'' + nombre_col +  '\',\'' + email_col + '\',\'' + geometry + '\')';
                     
-            $.post('http://utility-glider-589.appspot.com/newRoute', 
+            var posting = $.post('http://utility-glider-589.appspot.com/newRoute', 
 				{Route_id : route_id,
 				Route_name : route_name,
 				Status : status,
@@ -215,9 +216,11 @@
 				Nombre_colaborador : nombre_col,
 				Email_colaborador : email_col,
 				Geometry : geometry,				
-				},
-				function (){
-					alert ('Gracias!!');
+				}
+			);
+			
+			posting.done(function(data) {
+				alert ('YEY!');
 				}
 			);
         }
