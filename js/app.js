@@ -51,16 +51,6 @@ MapApp.controller('GpsCtrl', ['$scope','$ionicPlatform', '$location',
 		}
 	});
 	
-		
-	var updatePostion = function(lat,lng){
-		$center.lat = lat;
-		$center.lng = lng;
-	};
-	
-	var doSomething = function(){
-		updatePostion();
-	};
-
 }]);
 
 /**
