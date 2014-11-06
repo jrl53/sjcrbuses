@@ -42,7 +42,7 @@ MapApp.controller('MainCtrl', ['$scope', function($scope) {
  */
 MapApp.controller('GpsCtrl', ['$scope','$ionicPlatform', '$location',
 	function($scope, $ionicPlatform, $location) {
-	
+		$scope.mycount = 1;
 		
 		$scope.center = {
 			
@@ -56,6 +56,8 @@ MapApp.controller('GpsCtrl', ['$scope','$ionicPlatform', '$location',
 			$scope.center.lat = 1;
 			$scope.center.lng = 2;
 			$scope.center.zoom = 4;
+			
+			$scope.mycount += 1;
 		};
 		
 	
