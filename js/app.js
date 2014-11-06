@@ -52,19 +52,14 @@ MapApp.controller('GpsCtrl', ['$scope','$ionicPlatform', '$location',
 		updatePosition: function(lat,lng){
 			center.lat = lat;
 			center.lat = lng;
+		}, 
+		doSomething: function(){
+			updatePosition(2,2);
 		}
 	});
 	
 		
 	
-	$scope.updatePosition = function(lat,lng){
-		$scope.center.lat = lat;
-		$scope.center.lng = lng;
-	};
-	
-	$scope.doSomething = function(){
-		$scope.updatePosition(1,1);
-	};
 	
 	// init gps array
     $scope.whoiswhere = [];
