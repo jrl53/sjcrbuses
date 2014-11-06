@@ -1,6 +1,6 @@
 'use strict';
 var MapApp = angular.module('MapApp', [
-	'ionic', 'leaflet-directive', 'google-maps'.ns()]);
+	'ionic', 'google-maps'.ns()]);
 
 /**
  * Routing table including associated controllers.
