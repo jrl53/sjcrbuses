@@ -48,7 +48,13 @@ MapApp.controller('GpsCtrl', ['$scope','$ionicPlatform', '$location',
 					lng: -0.09,
 					zoom: 4
 				}
-			});
+		});
+		
+		$scope.updateCenter = function(){
+			$scope.center.lat = 1;
+			$scope.center.lng = 2;
+		};
+		
 	
 }]);
 
