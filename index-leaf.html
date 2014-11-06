@@ -12,6 +12,8 @@
 	
     <link href="http://code.ionicframework.com/0.9.26/css/ionic.css" rel="stylesheet">  
     
+	<script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>
+	
 	<script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"></script>
 	<script src="http://code.ionicframework.com/0.9.26/js/ionic.js"></script>
     <script src="http://code.ionicframework.com/0.9.26/js/angular/angular.js"></script>
@@ -22,6 +24,7 @@
 	
 	<script src="js/angular-leaflet-directive.min.js"></script>
 	
+	<script src='js/jquery-1.11.1.min.js'></script>
 	<script src='js/lodash.js'></script>
 	<script src='js/bluebird.js'></script>
 	<script src='js/angular-google-maps.js'></script>
@@ -71,9 +74,7 @@
 			
 			<!-- map directive-->
 			
-			<div data-tap-disable="true">
-			<leaflet center="center"  width="640" height="400"> </leaflet>
-			</div>
+			<ui-gmap-google-map center="map.center" zoom="map.zoom"></ui-gmap-google-map>
 			
 			
 			</ion-content>
