@@ -54,8 +54,17 @@ MapApp.controller('GpsCtrl', ['$scope','$ionicPlatform', '$location',
             scrollWheelZoom: false
         }
     });
-
 	
+	$scope.updatePosition = function(lat,lng){
+		$scope.center = {
+			lat: lat,
+			lng: lng
+		}
+	}
+	
+	$scope.doSomething = function(){
+		$scope.updatePosition(1,1);
+	};
 	
 	// init gps array
     $scope.whoiswhere = [];
@@ -84,9 +93,7 @@ MapApp.controller('GpsCtrl', ['$scope','$ionicPlatform', '$location',
 
 			});
 			
-	$scope.doSomething = function(){
-		alert ("yey!");
-	};
+	
 
 }]);
 
