@@ -43,10 +43,17 @@ MapApp.controller('MainCtrl', ['$scope', function($scope) {
 MapApp.controller('GpsCtrl', ['$scope','$ionicPlatform', '$location',
 	function($scope, $ionicPlatform, $location) {
 	
+	//center
+	$scope.center = {
+		lat : 9.93571127741000,
+		lng : -84.064121246337,
+		zoom : 12
+	}
+	
 	// init gps array
     $scope.whoiswhere = [];
     $scope.basel = { lat: 47.55633987116614, lon: 7.576619513223015 };
-
+	
 
     // check login code
 	$ionicPlatform.ready(function() {	navigator.geolocation.getCurrentPosition(function(position) {
