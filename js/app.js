@@ -44,20 +44,13 @@ MapApp.controller('GpsCtrl', ['$scope','$ionicPlatform', '$location',
 	function($scope, $ionicPlatform, $location) {
 
 	
-	angular.extend($scope, {
-        center: {
-            lat: 9.93571127741000,
+		
+	$scope.center = {
+		lat: 9.93571127741000,
             lng: -84.064121246337,
             zoom: 12
-        },
-        defaults: {
-            scrollWheelZoom: false
-        },
-		updatePosition : function(lat,lng){
-			center.lat = lat;
-			center.lng = lng;
-		}
-    });
+        };
+	
 	
 	
 	$scope.doSomething = function(){
