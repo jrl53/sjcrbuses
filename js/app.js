@@ -52,13 +52,12 @@ MapApp.controller('GpsCtrl', ['$scope','$ionicPlatform', '$location',
         },
         defaults: {
             scrollWheelZoom: false
-        }
+        },
+		updatePosition = function(lat,lng){
+			center.lat = lat;
+			center.lng = lng;
+		}
     });
-	
-	$scope.updatePosition = function(lat,lng){
-		$scope.center.lat = lat;
-		$scope.center.lng = lng;
-	};
 	
 	
 	$scope.doSomething = function(){
