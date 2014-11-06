@@ -66,6 +66,13 @@
 			
 			
 			<!-- map directive-->
+			
+			<form>
+				Latitude : <input type="number" step="any" ng-model="center.lat">
+				Longitude : <input type="number" step="any" ng-model="center.lng">
+				Zoom : <input type="number" step="any" ng-model="center.zoom">
+			</form>
+			
 			<leaflet center="center" width="640" height="400"></leaflet>
 			</ion-content>
 
@@ -84,11 +91,7 @@
 			  </div>
 			  
 			  
-			<form>
-				Latitude : <input type="number" step="any" ng-model="center.lat">
-				Longitude : <input type="number" step="any" ng-model="center.lng">
-				Zoom : <input type="number" step="any" ng-model="center.zoom">
-			</form>
+			
 			  
 			</ion-footer-bar>
 
