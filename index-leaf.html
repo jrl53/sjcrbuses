@@ -77,13 +77,35 @@
 			
 			<!-- map directive-->
 			
-			<form>
-				Latitude : <input type="number" step="any" ng-model="center.lat">
-				Longitude : <input type="number" step="any" ng-model="center.lng">
-				Zoom : <input type="number" step="any" ng-model="center.zoom">
-			</form>
 			
-			<div id="map" width="640" height="400"></div>
+			
+			
+			<h1>Ayudanos a trazar una ruta</h1>
+  <div class="row">
+    <div class="span11">
+      <div id="map"></div>
+    </div>
+    <div class="span6">
+	
+		<form action="" method="post">
+			
+			<textarea readonly name="coords"></textarea>
+			<textarea readonly id="stopstext"></textarea>
+			<input id="startButton" value="Start Tracking" type="button">
+			<input id="stopButton" value="Stop" type="button">
+			<input id= "addButton" value="Add Stop" type="button">
+            <input id="resetButton" value="Reset Trip" type="button">
+			<input id="submitButton" value ="Submit" disabled="disabled" type="button"><br>
+			Nombre de Compania: <input type="text" id="Compania"><br>
+			Nombre de Ruta: <input type="text" id="Ruta_Name"><br>
+			Numero de Ruta: <input type="text" id="Ruta_ID"><br>
+			Sentido: <input type="text" id="Sentido"><br>
+			Su nombre: <input type="text" id="Nombre_colaborador"><br>
+			Su email: <input type="text" id="Email_colaborador"><br>
+		</form>
+      
+    </div>
+  </div>
 			
 			</ion-content>
 
