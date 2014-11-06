@@ -43,12 +43,17 @@ MapApp.controller('MainCtrl', ['$scope', function($scope) {
 MapApp.controller('GpsCtrl', ['$scope','$ionicPlatform', '$location',
 	function($scope, $ionicPlatform, $location) {
 	
-	//center
-	$scope.center = {
-		lat : 9.93571127741000,
-		lng : -84.064121246337,
-		zoom : 12
-	};
+	angular.extend($scope, {
+        center: {
+            lat: 9.93571127741000,
+            lng: -84.064121246337,
+            zoom: 12
+        },
+        defaults: {
+            scrollWheelZoom: false
+        }
+    });
+
 	
 	// init gps array
     $scope.whoiswhere = [];
