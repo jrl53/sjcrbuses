@@ -48,6 +48,10 @@ MapApp.controller('GpsCtrl', ['$scope','$ionicPlatform', '$location',
 			lat: 51.505,
 			lng: -0.09,
 			zoom: 4
+		},
+		updatePosition: function(lat,lng){
+			center.lat = lat;
+			center.lat = lng;
 		}
 	});
 	
