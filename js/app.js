@@ -51,15 +51,18 @@ MapApp.controller('GpsCtrl', ['$scope','$ionicPlatform', '$location',
 		},
 		updatePosition: function(lat,lng){
 			center.lat = lat;
-			center.lat = lng;
+			center.lng = lng;
 		}, 
 		doSomething: function(){
-			updatePosition(2,2);
+			center.lat = 1;
+			center.lng = 2;
 		}
 	});
 	
 		
-	
+	var updatePostion = function(lat,lng){
+		
+	}
 	
 	// init gps array
     $scope.whoiswhere = [];
