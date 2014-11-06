@@ -48,7 +48,7 @@ MapApp.controller('GpsCtrl', ['$scope','$ionicPlatform', '$location',
 		lat : 9.93571127741000,
 		lng : -84.064121246337,
 		zoom : 12
-	}
+	};
 	
 	// init gps array
     $scope.whoiswhere = [];
