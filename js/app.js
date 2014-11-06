@@ -42,17 +42,20 @@ MapApp.controller('MainCtrl', ['$scope', function($scope) {
  */
 MapApp.controller('GpsCtrl', ['$scope','$ionicPlatform', '$location',
 	function($scope, $ionicPlatform, $location) {
-		angular.extend($scope, {
-				center: {
+	
+		
+		$scope.center = {
+			
 					lat: 51.505,
 					lng: -0.09,
 					zoom: 4
-				}
-		});
+				
+		};
 		
 		$scope.updateCenter = function(){
 			$scope.center.lat = 1;
 			$scope.center.lng = 2;
+			$scope.center.zoom = 4;
 		};
 		
 	
