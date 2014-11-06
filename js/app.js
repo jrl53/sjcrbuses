@@ -51,6 +51,14 @@ MapApp.controller('GpsCtrl', ['$scope','$ionicPlatform', '$location',
     zoom: 8
 	};
 	
+	$scope.updateCenter = function(){
+		$scope.map.center.latitude = 1;
+		$scope.map.center.longitude = 1;
+		$scope.map.zoom = 1;
+	};
+	
+	
+	
 }]);
 
 
