@@ -53,7 +53,7 @@ MapApp.controller('GpsCtrl', ['$scope','$ionicPlatform', '$location',
         defaults: {
             scrollWheelZoom: false
         },
-		updatePosition = function(lat,lng){
+		updatePosition : function(lat,lng){
 			center.lat = lat;
 			center.lng = lng;
 		}
