@@ -52,13 +52,13 @@ MapApp.controller('GpsCtrl', ['$scope','$ionicPlatform', '$location',
 				
 		};
 		
-		var updateCenter = function(){
+		$scope.updateCenter = function(){
 			$scope.center.lat = 1;
 			$scope.center.lng = 2;
 			$scope.center.zoom = 4;
 			
 			$scope.mycount += 1;
-		};
+		}
 		
 	
 }]);
