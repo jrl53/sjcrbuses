@@ -53,9 +53,13 @@ MapApp.controller('GpsCtrl', ['$scope','$ionicPlatform', '$location',
 		};
 		
 		$scope.updateCenter = function(){
-			$scope.center.lat = 1;
-			$scope.center.lng = 2;
-			$scope.center.zoom = 4;
+			$scope.center = {
+			
+					lat: 51.505,
+					lng: -0.09,
+					zoom: 4
+				
+		};
 			
 			$scope.mycount += 1;
 		}
