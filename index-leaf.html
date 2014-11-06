@@ -64,11 +64,6 @@
 			<ion-view title="'MiLata - Mapa'" left-buttons="leftButtons">
 			<ion-content has-header="true" scroll="false">
 			
-			<form>
-				Latitude : <input type="number" step="any" ng-model="center.lat">
-				Longitude : <input type="number" step="any" ng-model="center.lng">
-				Zoom : <input type="number" step="any" ng-model="center.zoom">
-			</form>
 			
 			<!-- map directive-->
 			<leaflet center="center"></leaflet>
@@ -87,6 +82,14 @@
 			  <div class="buttons" ng-click="doSomething()">
 				<button class="button">Submit</button>
 			  </div>
+			  
+			  
+			<form>
+				Latitude : <input type="number" step="any" ng-model="center.lat">
+				Longitude : <input type="number" step="any" ng-model="center.lng">
+				Zoom : <input type="number" step="any" ng-model="center.zoom">
+			</form>
+			  
 			</ion-footer-bar>
 
 			</ion-view>
