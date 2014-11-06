@@ -59,8 +59,8 @@ MapApp.controller('GpsCtrl', ['$scope','$ionicPlatform', '$location',
 		$scope.center = {
 			lat: lat,
 			lng: lng
-		}
-	}
+		};
+	};
 	
 	$scope.doSomething = function(){
 		$scope.updatePosition(1,1);
