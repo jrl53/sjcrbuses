@@ -43,6 +43,12 @@ MapApp.controller('MainCtrl', ['$scope', function($scope) {
 MapApp.controller('GpsCtrl', ['$scope','$ionicPlatform', '$location',
 	function($scope, $ionicPlatform, $location) {
 
+	
+}]);
+
+MapApp.controller('GpsCtrlchild', ['$scope',
+	function($scope) {
+
 	angular.extend($scope, {
 		center: {
 			lat: 51.505,
@@ -52,6 +58,7 @@ MapApp.controller('GpsCtrl', ['$scope','$ionicPlatform', '$location',
 	});
 	
 }]);
+
 
 /**
  * MAIN CONTROLLER - handle inapp browser

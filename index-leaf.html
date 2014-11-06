@@ -61,7 +61,7 @@
 		</script>
     
 		<script id="gpsView.html" type="text/ng-template">
-			<ion-view title="'MiLata - Mapa'" left-buttons="leftButtons">
+			<ion-view title="'MiLata - Mapa'" left-buttons="leftButtons" ng-controller="GpsCtrlchild">
 			<ion-content has-header="true" scroll="false">
 			
 			
@@ -69,7 +69,7 @@
 			<leaflet center="center"></leaflet>
 			</ion-content>
 
-			<ion-footer-bar align-title="left" class="bar-dark">
+			<ion-footer-bar align-title="left" class="bar-dark" >
 			  <div class="buttons">
 				<button class="button">Start</button>
 			  </div>
