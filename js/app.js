@@ -58,7 +58,7 @@ MapApp.controller('GpsCtrl', ['$scope','$ionicPlatform', '$location',
 	};
 	
 	var doSomething = function(){
-		updatePostion;
+		updatePostion();
 	};
 	
 	// init gps array
