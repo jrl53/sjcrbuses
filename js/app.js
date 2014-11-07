@@ -1,6 +1,6 @@
 'use strict';
 var MapApp = angular.module('MapApp', [
-	'ionic', 'leaflet-directive', 'google-maps'.ns()]);
+	'ionic', 'leaflet-directive']);
 
 /**
  * Routing table including associated controllers.
@@ -40,22 +40,24 @@ MapApp.controller('MainCtrl', ['$scope', function($scope) {
 /**
  * A google map / GPS controller.
  */
-MapApp.controller('GpsCtrl', ['$scope','$ionicPlatform', '$location',
-	function($scope, $ionicPlatform, $location) {
+MapApp.controller('GpsCtrl', ['$scope','$ionicPlatform', '$location', 'leafletData'
+	function($scope, $ionicPlatform, $location, leafletData) {
 	
-	$scope.map = {
-		center: {
-			latitude: 45,
-			longitude: -73
-		},
-    zoom: 8
-	};
-	
-	$scope.updateCenter = function(){
-		$scope.map.center.latitude = 1;
-		$scope.map.center.longitude = 1;
-		$scope.map.zoom = 1;
-	};
+	angular.extend($scope, {
+        center: {
+            lat: 51.505,
+            lng: -0.09,
+            zoom: 5
+        }
+    })
+  
+    $scope.moveCenter = function() {
+         $scope.center = {
+            lat: 51.505,
+            lng: -0.09,
+            zoom: 5
+        };
+    }
 	
 	
 	

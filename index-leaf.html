@@ -24,14 +24,7 @@
 	
 	<script src="js/angular-leaflet-directive.min.js"></script>
 	
-	<script src='js/jquery-1.11.1.min.js'></script>
-	<script src='js/lodash.js'></script>
-	<script src='js/bluebird.js'></script>
-	<script src='js/angular-google-maps.js'></script>
-	
-	
 	<script src="js/app.js"></script>
-	
 		
 		<!-- cordova script -->
 		
@@ -74,7 +67,7 @@
 			
 			<!-- map directive-->
 			
-			<ui-gmap-google-map center="map.center" zoom="map.zoom"></ui-gmap-google-map>
+			<leaflet center="center" width="640px" height="480px"> </leaflet>
 			
 			
 			</ion-content>
@@ -86,7 +79,7 @@
 			  <div class="buttons">
 				<button class="button">Stop</button>
 			  </div>
-			  <div class="buttons" ng-click="updateCenter()">
+			  <div class="buttons" ng-click="moveCenter()">
 				<button class="button">Add Stop</button>
 			  </div>
 			  <div class="buttons" ng-click="center.lat=1;center.lng=1;center.zoom=2">
