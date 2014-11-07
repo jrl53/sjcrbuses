@@ -31,10 +31,11 @@ MapApp.factory('geoLocationService', function () {
 			});
 		  },
 		  stop: function () {
-			alert(watchId);
+			
 		    if (watchId) {
 		       navigator.geolocation.clearWatch(watchId);
 		    }
+			alert(watchId);
 		  }
 		};
 	});
