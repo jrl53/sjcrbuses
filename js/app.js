@@ -40,7 +40,7 @@ MapApp.controller('MainCtrl', ['$scope', function($scope) {
 /**
  * A google map / GPS controller.
  */
-MapApp.controller('GpsCtrl', ['$scope','$ionicPlatform', '$location', 'leafletData'
+MapApp.controller('GpsCtrl', ['$scope','$ionicPlatform', '$location', 'leafletData',
 	function($scope, $ionicPlatform, $location, leafletData) {
 	
 	angular.extend($scope, {
@@ -49,7 +49,7 @@ MapApp.controller('GpsCtrl', ['$scope','$ionicPlatform', '$location', 'leafletDa
             lng: -0.09,
             zoom: 5
         }
-    })
+    });
   
     $scope.moveCenter = function() {
          $scope.center = {
@@ -57,7 +57,7 @@ MapApp.controller('GpsCtrl', ['$scope','$ionicPlatform', '$location', 'leafletDa
             lng: -0.09,
             zoom: 5
         };
-    }
+    };
 	
 	
 	
