@@ -24,7 +24,11 @@ MapApp.factory('geoLocationService', function () {
 		var watchId;
 		return {
 		  start: function (success, error) {
-		    watchId = navigator.geolocation.watchPosition(success, error);
+		    watchId = navigator.geolocation.watchPosition(success, error,{
+				enableHighAccuracy: true,
+				maximumAge: 60000,
+				timeout: 15000
+			});
 		  },
 		  stop: function () {
 		    if (watchId) {
