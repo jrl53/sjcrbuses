@@ -16,6 +16,26 @@ MapApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, 
 }]);
 
 /**
+* Geolocation service.
+*/
+
+MapApp.factory('geoLocationService', function () {
+		'use strict';
+		var watchId;
+		return {
+		  start: function (success, error) {
+		    watchId = navigator.geolocation.watchPosition(success, error);
+		  },
+		  stop: function () {
+		    if (watchId) {
+		       navigator.geolocation.clearWatch(watchId);
+		    }
+		  }
+		};
+	});
+
+
+/**
  * HEADER - handle menu toggle
  */
 MapApp.controller('HeaderCtrl', function($scope) {
@@ -40,8 +60,10 @@ MapApp.controller('MainCtrl', ['$scope', function($scope) {
 /**
  * A google map / GPS controller.
  */
-MapApp.controller('GpsCtrl', ['$scope','leafletData',
-	function($scope, leafletData) {
+MapApp.controller('GpsCtrl', ['$scope','leafletData', 'geoLocationService',
+	function($scope, leafletData, geoLocationService) {
+	
+	$scope.currentPosition = {};
 	
 	$scope.filters = {};
     $scope.filters.center = {
@@ -59,7 +81,24 @@ MapApp.controller('GpsCtrl', ['$scope','leafletData',
         };
     }
 
+	$scope.recording = function (on) {
+	    if (on) {
+	      geoLocationService.start(onChange, onChangeError);
+	    } else {
+	      geoLocationService.stop();
+	    }
+	  };
 	
+	function onChange(newPosition) {
+		  $scope.currentPosition = newPosition;
+	      var data = newPosition.coords;
+	      data.timestamp = newPosition.timestamp;
+	      
+	    }
+
+	function onChangeError(error) {
+	  alert("Error: " + error);
+	}
 	
 	
 }]);
