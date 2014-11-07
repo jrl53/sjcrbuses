@@ -53,7 +53,7 @@ MapApp.controller('GpsCtrl', ['$scope','$ionicPlatform', '$location', 'leafletDa
   
     $scope.moveCenter = function() {
          $scope.center = {
-            lat: 51.505,
+            lat: 1,
             lng: -0.09,
             zoom: 5
         };
