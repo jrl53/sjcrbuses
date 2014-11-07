@@ -40,8 +40,8 @@ MapApp.controller('MainCtrl', ['$scope', function($scope) {
 /**
  * A google map / GPS controller.
  */
-MapApp.controller('GpsCtrl', ['$scope','$ionicPlatform', '$location', 'leafletData',
-	function($scope, $ionicPlatform, $location, leafletData) {
+MapApp.controller('GpsCtrl', ['$scope','leafletData',
+	function($scope, leafletData) {
 	
 	angular.extend($scope, {
         center: {
