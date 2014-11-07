@@ -96,7 +96,7 @@ MapApp.controller('GpsCtrl', ['$scope','leafletData', 'geoLocationService',
 	  };
 	
 	function onChange(newPosition) {
-		alert("newpos");
+		
 		  $scope.currentPosition = newPosition;
 	   //   var data = newPosition.coords;
 	   //   data.timestamp = newPosition.timestamp;
