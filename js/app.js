@@ -43,21 +43,25 @@ MapApp.controller('MainCtrl', ['$scope', function($scope) {
 MapApp.controller('GpsCtrl', ['$scope','leafletData',
 	function($scope, leafletData) {
 	
-	angular.extend($scope, {
-        center: {
+	$scope.filters = {};
+    $scope.filters.center = {
+        lat: 51.505,
+        lng: -0.09,
+        zoom: 5
+    };
+    
+  
+    $scope.moveCenter = function() {
+         $scope.filters.center = {
             lat: 51.505,
             lng: -0.09,
             zoom: 5
-        }
-    });
-  
-    $scope.moveCenter = function() {
-         $scope.center = {
-            lat: 1,
-            lng: -0.09,
-            zoom: 5
         };
-    };
+    }
+
+    $scope.showMap = function() {
+         $scope.showMap = true;
+    }
 	
 	
 	
