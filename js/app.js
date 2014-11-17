@@ -34,7 +34,7 @@ MapApp.factory('geoLocationService', function () {
 	}
 
 	service.start = function (success) {
-	    watchId = navigator.geolocation.watchPosition(success,{
+	    watchId = navigator.geolocation.watchPosition(success, onChangeError, {
 			enableHighAccuracy: true,
 			maximumAge: 60000,
 			timeout: 15000
