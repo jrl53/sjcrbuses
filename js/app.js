@@ -119,7 +119,7 @@ MapApp.controller('GpsCtrl', ['$scope','leafletData', 'geoLocationService',
 
 	$scope.recording = function (on) {
 	    if (on) {
-	      geoLocationService.start(onChange, onChangeError);
+	      geoLocationService.start();
 	    } else {
 	      geoLocationService.stop();
 	    }
