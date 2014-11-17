@@ -21,23 +21,25 @@ MapApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, 
 
 MapApp.factory('geoLocationService', function () {
 		'use strict';
+		var service = {};
 		var watchId;
-		return {
-		  start: function (success, error) {
+		
+		service.start = function (success, error) {
 		    watchId = navigator.geolocation.watchPosition(success, error,{
 				enableHighAccuracy: true,
 				maximumAge: 60000,
 				timeout: 15000
 			});
-		  },
-		  stop: function () {
-			
+		}
+		
+		service.stop = function () {
 		    if (watchId) {
 		       navigator.geolocation.clearWatch(watchId);
 		    }
 			alert(watchId);
-		  }
-		};
+		}
+
+		return service;
 	});
 
 
@@ -71,6 +73,14 @@ MapApp.controller('GpsCtrl', ['$scope','leafletData', 'geoLocationService',
 	
 	$scope.currentPosition = {};
 	
+	 
+	//$scope.ta = document.querySelector('textarea');
+	//$scope.ts = document.querySelector('#stopstext');
+	$scope.lt = 0;
+	$scope.ls = false;
+	$scope.track = false;
+	$scope.watchID;
+	
 	$scope.filters = {};
     $scope.filters.center = {
         lat: 51.505,
@@ -96,12 +106,20 @@ MapApp.controller('GpsCtrl', ['$scope','leafletData', 'geoLocationService',
 	  };
 	
 	function onChange(newPosition) {
+		$scope.currentPosition = newPosition;	  //Set for two-way binding
+		var now = new Date().getTime();
+		if (ls != 1 || now - lt > 1000) {
+			ta.value += position.coords.longitude + ',' + position.coords.latitude + '\n';
+			localStorage.setItem('trip', ta.value);
+			path.push([now,position.coords.latitude, position.coords.longitude]);
+			pathDisplay.push([position.coords.latitude, position.coords.longitude]);
+			drawlines();
+			updatePosition(position.coords.latitude, position.coords.longitude);
+			lt = now;
+			ls = 1;
+		}
 		
-		  $scope.currentPosition = newPosition;
-	   //   var data = newPosition.coords;
-	   //   data.timestamp = newPosition.timestamp;
-	      
-	    }
+	}
 
 	function onChangeError(error) {
 	  alert("Error: " + error);
