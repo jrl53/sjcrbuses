@@ -24,28 +24,17 @@ MapApp.factory('geoLocationService', function () {
 	var service = {};
 	var watchId;
 	
-	var onChange = function(newPosition) {
-		$scope.currentPosition = newPosition;	  //Set for two-way binding
-		var now = new Date().getTime();
-		if (ls != 1 || now - lt > 1000) {
-			ta.value += position.coords.longitude + ',' + position.coords.latitude + '\n';
-			localStorage.setItem('trip', ta.value);
-			path.push([now,position.coords.latitude, position.coords.longitude]);
-			pathDisplay.push([position.coords.latitude, position.coords.longitude]);
-			drawlines();
-			updatePosition(position.coords.latitude, position.coords.longitude);
-			lt = now;
-			ls = 1;
-		}
-	
-	};
 
 	var onChangeError = function (error) {
   		alert("Error: " + error);
 	};	
 
-	service.start = function () {
-	    watchId = navigator.geolocation.watchPosition(onChange, onChangeError,{
+	service.testFunc = function() {
+		alert("I'm in!!");
+	}
+
+	service.start = function (sucess) {
+	    watchId = navigator.geolocation.watchPosition(success,{
 			enableHighAccuracy: true,
 			maximumAge: 60000,
 			timeout: 15000
@@ -119,14 +108,16 @@ MapApp.controller('GpsCtrl', ['$scope','leafletData', 'geoLocationService',
 
 	$scope.recording = function (on) {
 	    if (on) {
-	      geoLocationService.start();
+	      geoLocationService.start(onChange);
 	    } else {
 	      geoLocationService.stop();
 	    }
 	  };
 	
-/*	function onChange(newPosition) {
+	function onChange(newPosition) {
 		$scope.currentPosition = newPosition;	  //Set for two-way binding
+		geoLocationService.testFunc();
+
 		var now = new Date().getTime();
 		if (ls != 1 || now - lt > 1000) {
 			ta.value += position.coords.longitude + ',' + position.coords.latitude + '\n';
@@ -144,7 +135,7 @@ MapApp.controller('GpsCtrl', ['$scope','leafletData', 'geoLocationService',
 	function onChangeError(error) {
 	  alert("Error: " + error);
 	}
-*/
+
 	
 }]);
 
