@@ -33,7 +33,7 @@ MapApp.factory('geoLocationService', function () {
 		alert("I'm in!!");
 	}
 
-	service.start = function (sucess) {
+	service.start = function (success) {
 	    watchId = navigator.geolocation.watchPosition(success,{
 			enableHighAccuracy: true,
 			maximumAge: 60000,
