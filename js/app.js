@@ -113,12 +113,7 @@ MapApp.controller('GpsCtrl', ['$scope','leafletData', 'geoLocationService',
     };
     
 
-  	$scope.changeTrack = function(){
-  		if($scope.track) {$scope.track = false;}
-  		else {$scope.track = true}
-  		alert(track);
-  	}
-    
+  	    
 
     $scope.moveCenter = function() {
          $scope.filters.center = {
