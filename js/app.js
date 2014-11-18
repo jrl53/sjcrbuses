@@ -26,6 +26,9 @@ MapApp.factory('geoLocationService', function () {
 	var pathDisplay = new Array();
 	var currentPosition;
 
+	var lt = 0;
+	var ls = false;
+
 	var onChangeError = function (error) {
   		alert("Error: " + error);
 	};	
