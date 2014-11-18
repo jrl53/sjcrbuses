@@ -40,7 +40,7 @@ MapApp.factory('geoLocationService', function () {
 		var now = new Date().getTime();
 		if (ls != 1 || now - lt > 1000) {
 			//alert("in service");
-			this.currentPosition = newPosition;
+			this.currentPosition = now;
 			
 			lt = now;
 			ls = 1;
@@ -113,7 +113,7 @@ MapApp.controller('GpsCtrl', ['$scope','leafletData', 'geoLocationService',
     };
     
 
-  	    
+  	
 
     $scope.moveCenter = function() {
          $scope.filters.center = {
