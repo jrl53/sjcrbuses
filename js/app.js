@@ -39,7 +39,7 @@ MapApp.factory('geoLocationService', function () {
 		var now = new Date().getTime();
 		if (ls != 1 || now - lt > 1000) {
 			alert("in service");
-			currentPosition = newPosition;
+			currentPosition = now;
 			
 			lt = now;
 			ls = 1;
