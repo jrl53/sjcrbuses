@@ -126,7 +126,7 @@ MapApp.controller('GpsCtrl', ['$scope','leafletData', 'geoLocationService',
 
     var updateLocation = function(){
     	console.log("updating");
-    	alert("yey!");
+    	//alert("yey!");
     	$scope.currentPos = geoLocationService.currentPosition;
     };
 
