@@ -23,14 +23,14 @@ MapApp.factory('geoLocationService', function () {
 	'use strict';
 	var service = {};
 	var watchId;
-	
+	var pathDisplay = new Array();
 
 	var onChangeError = function (error) {
   		alert("Error: " + error);
 	};	
 
-	service.testFunc = function() {
-		alert("I'm in!!");
+	service.doYourThing = function() {
+		alert("hey! i'm doing my thing!");
 	}
 
 	service.start = function (success) {
@@ -116,18 +116,15 @@ MapApp.controller('GpsCtrl', ['$scope','leafletData', 'geoLocationService',
 	
 	function onChange(newPosition) {
 		$scope.currentPosition = newPosition;	  //Set for two-way binding
-		geoLocationService.testFunc();
+		
 
 		var now = new Date().getTime();
-		if (ls != 1 || now - lt > 1000) {
-			ta.value += position.coords.longitude + ',' + position.coords.latitude + '\n';
-			localStorage.setItem('trip', ta.value);
-			path.push([now,position.coords.latitude, position.coords.longitude]);
-			pathDisplay.push([position.coords.latitude, position.coords.longitude]);
-			drawlines();
-			updatePosition(position.coords.latitude, position.coords.longitude);
-			lt = now;
-			ls = 1;
+		if ($scope.ls != 1 || now - $scope.lt > 1000) {
+			
+			geoLocationService.doYourThing();
+			
+			$scope.lt = now;
+			$scope.ls = 1;
 		}
 		
 	}
