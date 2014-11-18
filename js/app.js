@@ -128,14 +128,16 @@ MapApp.controller('GpsCtrl', ['$scope','leafletData', 'geoLocationService',
     	console.log("updating");
     	//alert("yey!");
     	$scope.currentPos = geoLocationService.currentPosition;
+    	moveCenter($scope.currentPos);
+
     };
 
   	geoLocationService.registerObserverCallback(updateLocation);
 
-    $scope.moveCenter = function() {
+    $scope.moveCenter = function(newPos) {
          $scope.filters.center = {
-            lat: 51.505,
-            lng: -0.09,
+            lat: newPos.coords.latitude,
+            lng: newPos.coords.longitude,
             zoom: 5
         };
     }
