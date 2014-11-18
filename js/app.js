@@ -37,6 +37,7 @@ MapApp.factory('geoLocationService', function () {
 
 	var notifyObservers = function(){
 		angular.forEach(observerCallbacks, function(callback){
+	      console.log("notifying");
 	      callback();
 	    });
   	};
@@ -124,6 +125,7 @@ MapApp.controller('GpsCtrl', ['$scope','leafletData', 'geoLocationService',
     
 
     var updateLocation = function(){
+    	console.log("updating");
     	$scope.currentPos = geoLocationService.currentPosition;
     };
 
