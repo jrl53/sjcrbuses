@@ -143,7 +143,8 @@ MapApp.controller('GpsCtrl', ['$scope','leafletData', 'geoLocationService',
 	 	alert("about to change");
 	 //	$scope.currentPos = newVal;
 	 	
-	 })
+	 },
+	 true)
 		
 
 /*	function onChange(newPosition) {
