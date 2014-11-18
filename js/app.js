@@ -24,7 +24,7 @@ MapApp.factory('geoLocationService', function () {
 	var service = {};
 	var watchId;
 	var pathDisplay = new Array();
-	var currentPosition;
+	var currentPosition = {};
 
 	var lt = 0;
 	var ls = false;
@@ -38,7 +38,7 @@ MapApp.factory('geoLocationService', function () {
 
 		var now = new Date().getTime();
 		if (ls != 1 || now - lt > 1000) {
-			
+			alert("in service");
 			currentPosition = newPosition;
 			
 			lt = now;
@@ -112,6 +112,15 @@ MapApp.controller('GpsCtrl', ['$scope','leafletData', 'geoLocationService',
     };
     
   
+    $scope.$watch(function(){
+		return geoLocationService.currentPosition;
+	 },
+	 function(newVal){
+	 	alert("about to change");
+	 	$scope.currentPosition = newVal;
+	 	
+	 });
+
     $scope.moveCenter = function() {
          $scope.filters.center = {
             lat: 51.505,
@@ -128,15 +137,7 @@ MapApp.controller('GpsCtrl', ['$scope','leafletData', 'geoLocationService',
 	    }
 	  };
 	
-	$scope.$watch(function(){
-		return geoLocationService.currentPosition;
-	 },
-	 function(newVal, oldVal){
-	 	alert("about to change");
-	 	$scope.currentPosition = newVal;
-	 	
-	 }, 
-	 true);
+	
 		
 
 /*	function onChange(newPosition) {
