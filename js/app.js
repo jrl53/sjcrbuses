@@ -20,7 +20,7 @@ MapApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, 
 */
 
 MapApp.factory('geoLocationService', function () {
-	'use strict';
+//	'use strict';
 	var service = {};
 	var watchId;
 	var pathDisplay = new Array();
