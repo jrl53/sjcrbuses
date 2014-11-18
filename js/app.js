@@ -114,14 +114,7 @@ MapApp.controller('GpsCtrl', ['$scope','leafletData', 'geoLocationService',
     
 
   
-    $scope.$watch(function(){
-		return $scope.track;
-	 },
-	 function(){
-	 	alert("about to change");
-	 //	$scope.currentPos = newVal;
-	 	
-	 })
+    
 
     $scope.moveCenter = function() {
          $scope.filters.center = {
@@ -139,7 +132,14 @@ MapApp.controller('GpsCtrl', ['$scope','leafletData', 'geoLocationService',
 	    }
 	  };
 	
-	
+	$scope.$watch(function(){
+		return $scope.track;
+	 },
+	 function(){
+	 	alert("about to change");
+	 //	$scope.currentPos = newVal;
+	 	
+	 })
 		
 
 /*	function onChange(newPosition) {
