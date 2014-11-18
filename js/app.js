@@ -29,7 +29,7 @@ MapApp.factory('geoLocationService', function () {
 
 	var observerCallbacks = [];
 
-	this.currentPosition = false;
+	service.currentPosition = {};
 	
 	service.registerObserverCallback = function(callback){
 		observerCallbacks.push(callback);
