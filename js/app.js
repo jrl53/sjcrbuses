@@ -31,7 +31,7 @@ MapApp.factory('geoLocationService', function () {
 
 	this.currentPosition = false;
 	
-	this.registerObserverCallback = function(callback){
+	service.registerObserverCallback = function(callback){
 		observerCallbacks.push(callback);
 	}
 
