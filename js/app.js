@@ -126,7 +126,7 @@ MapApp.controller('GpsCtrl', ['$scope','leafletData', 'geoLocationService',
 	  };
 	
 	$scope.$watch(function(){
-		return.geoLocationService.currentPosition;
+		return geoLocationService.currentPosition;
 	 },
 	 function(newVal, oldVal){
 	 	$scope.currentPosition = newVal;
