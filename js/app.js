@@ -44,8 +44,8 @@ MapApp.factory('geoLocationService', function () {
 		
 	};
 
-	service.start = function (success) {
-	    watchId = navigator.geolocation.watchPosition(success, onChangeError, {
+	service.start = function () {
+	    watchId = navigator.geolocation.watchPosition(onChange, onChangeError, {
 			enableHighAccuracy: true,
 			maximumAge: 60000,
 			timeout: 15000
@@ -119,7 +119,7 @@ MapApp.controller('GpsCtrl', ['$scope','leafletData', 'geoLocationService',
 
 	$scope.recording = function (on) {
 	    if (on) {
-	      geoLocationService.start(onChange);
+	      geoLocationService.start();
 	    } else {
 	      geoLocationService.stop();
 	    }
