@@ -117,9 +117,9 @@ MapApp.controller('GpsCtrl', ['$scope','leafletData', 'geoLocationService',
     $scope.$watch(function(){
 		return $scope.track;
 	 },
-	 function(newVal){
+	 function(){
 	 	alert("about to change");
-	 	$scope.currentPos = newVal;
+	 //	$scope.currentPos = newVal;
 	 	
 	 })
 
