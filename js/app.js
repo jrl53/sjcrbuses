@@ -52,7 +52,7 @@ MapApp.factory('geoLocationService', function () {
 		var now = new Date().getTime();
 		if (ls != 1 || now - lt > 1000) {
 			//alert("in service");
-			this.currentPosition = newPosition;
+			service.currentPosition = newPosition;
 			notifyObservers();
 			lt = now;
 			ls = 1;
