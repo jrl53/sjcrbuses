@@ -24,11 +24,22 @@ MapApp.factory('geoLocationService', function () {
 	var service = {};
 	var watchId;
 	var pathDisplay = new Array();
-	
-	this.currentPosition = false;
-
 	var lt = 0;
 	var ls = false;
+
+	var observerCallbacks = [];
+
+	this.currentPosition = false;
+	
+	this.registerObserverCallback = function(callback){
+		observerCallbacks.push(callback);
+	}
+
+	var notifyObservers = function(){
+		angular.forEach(observerCallbacks, function(callback){
+	      callback();
+	    });
+  	};
 
 	var onChangeError = function (error) {
   		alert("Error: " + error);
@@ -41,7 +52,7 @@ MapApp.factory('geoLocationService', function () {
 		if (ls != 1 || now - lt > 1000) {
 			//alert("in service");
 			this.currentPosition = true;
-			
+			notifyObservers();
 			lt = now;
 			ls = 1;
 		}
@@ -95,7 +106,6 @@ MapApp.controller('MainCtrl', ['$scope', function($scope) {
 MapApp.controller('GpsCtrl', ['$scope','leafletData', 'geoLocationService',
 	function($scope, leafletData, geoLocationService) {
 	
-	$scope.currentPos = geoLocationService.currentPosition;
 	
 	 
 	//$scope.ta = document.querySelector('textarea');
@@ -113,7 +123,11 @@ MapApp.controller('GpsCtrl', ['$scope','leafletData', 'geoLocationService',
     };
     
 
-  	
+    var updateLocation = function(){
+    	$scope.currentPos = geoLocationService.currentPosition;
+    };
+
+  	geoLocationService.registerObserverCallback(updateLocation);
 
     $scope.moveCenter = function() {
          $scope.filters.center = {
@@ -131,14 +145,7 @@ MapApp.controller('GpsCtrl', ['$scope','leafletData', 'geoLocationService',
 	    }
 	  };
 	
-	$scope.$watch(function(){
-		return geoLocationService.currentPosition;
-	 },
-	 function(){
-	 	alert("about to change");
-	 //	$scope.currentPos = newVal;
-	 	
-	 })
+	
 		
 
 /*	function onChange(newPosition) {
