@@ -24,14 +24,25 @@ MapApp.factory('geoLocationService', function () {
 	var service = {};
 	var watchId;
 	var pathDisplay = new Array();
+	var currentPosition;
 
 	var onChangeError = function (error) {
   		alert("Error: " + error);
 	};	
 
-	service.doYourThing = function() {
-		alert("hey! i'm doing my thing!");
-	}
+	
+	var onChange = function(newPosition) {
+
+		var now = new Date().getTime();
+		if (ls != 1 || now - lt > 1000) {
+			
+			currentPosition = newPosition;
+			
+			lt = now;
+			ls = 1;
+		}
+		
+	};
 
 	service.start = function (success) {
 	    watchId = navigator.geolocation.watchPosition(success, onChangeError, {
@@ -114,6 +125,16 @@ MapApp.controller('GpsCtrl', ['$scope','leafletData', 'geoLocationService',
 	    }
 	  };
 	
+	$scope.$watch(function(){
+		return.geoLocationService.currentPosition;
+	 },
+	 function(newVal, oldVal){
+	 	$scope.currentPosition = newVal;
+	 	alert("watched!");
+	 }, 
+	 true);
+		
+
 	function onChange(newPosition) {
 		$scope.currentPosition = newPosition;	  //Set for two-way binding
 		
@@ -129,9 +150,7 @@ MapApp.controller('GpsCtrl', ['$scope','leafletData', 'geoLocationService',
 		
 	}
 
-	function onChangeError(error) {
-	  alert("Error: " + error);
-	}
+	
 
 	
 }]);
