@@ -95,7 +95,7 @@ MapApp.controller('MainCtrl', ['$scope', function($scope) {
 MapApp.controller('GpsCtrl', ['$scope','leafletData', 'geoLocationService',
 	function($scope, leafletData, geoLocationService) {
 	
-	$scope.currentPos = {};
+	$scope.currentPos = geoLocationService.currentPosition;
 	
 	 
 	//$scope.ta = document.querySelector('textarea');
@@ -112,6 +112,7 @@ MapApp.controller('GpsCtrl', ['$scope','leafletData', 'geoLocationService',
         zoom: 5
     };
     
+
   
     $scope.$watch(function(){
 		return geoLocationService.currentPosition;
@@ -120,7 +121,7 @@ MapApp.controller('GpsCtrl', ['$scope','leafletData', 'geoLocationService',
 	 	alert("about to change");
 	 	$scope.currentPos = newVal;
 	 	
-	 });
+	 })
 
     $scope.moveCenter = function() {
          $scope.filters.center = {
