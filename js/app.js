@@ -136,7 +136,7 @@ MapApp.controller('GpsCtrl', ['$scope','leafletData', 'geoLocationService',
 	 true);
 		
 
-	function onChange(newPosition) {
+/*	function onChange(newPosition) {
 		$scope.currentPosition = newPosition;	  //Set for two-way binding
 		
 
@@ -150,7 +150,7 @@ MapApp.controller('GpsCtrl', ['$scope','leafletData', 'geoLocationService',
 		}
 		
 	}
-
+*/
 	
 
 	
