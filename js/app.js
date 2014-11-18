@@ -24,7 +24,8 @@ MapApp.factory('geoLocationService', function () {
 	var service = {};
 	var watchId;
 	var pathDisplay = new Array();
-	var currentPosition = {};
+	
+	this.currentPosition = {};
 
 	var lt = 0;
 	var ls = false;
